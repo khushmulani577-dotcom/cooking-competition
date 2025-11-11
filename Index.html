@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Narmada House MasterChef Competition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #d32f2f; /* Red */
+            color: #fff;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 1s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-100%); }
+            to { transform: translateY(0); }
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            margin-right: 1rem;
+        }
+
+        .school-info h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+        }
+
+        .school-info h2 {
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s, transform 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #ffd700; /* Gold */
+            transform: scale(1.1);
+        }
+
+        /* Hero Section */
+        #hero {
+            background: linear-gradient(to right, #d32f2f, #fff);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            padding-top: 80px; /* Account for fixed header */
+            animation: fadeIn 2s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-banner h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .slogan {
+            font-size: 1.5rem;
+            font-weight: 300;
+        }
+
+        /* Section Styles */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #d32f2f;
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: bounceIn 1s ease-out;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Dish Cards */
+        .dish-card, .drink-card, .team-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s, rotate 0.3s;
+            margin-bottom: 2rem;
+        }
+
+        .dish-card:hover, .drink-card:hover, .team-card:hover {
+            transform: translateY(-10px) rotate(2deg);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .dish-image, .drink-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .dish-image:hover, .drink-image:hover {
+            transform: scale(1.1);
+        }
+
+        .dish-info {
+            padding: 1rem;
+        }
+
+        .dish-info h3 {
+            font-family: 'Playfair Display', serif;
+            color: #d32f2f;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Drinks Grid */
+        .drinks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .drink-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: #d32f2f;
+            margin: 1rem 0 0.5rem;
+        }
+
+        /* Team Grid */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-card {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .team-card h3 {
+            font-family: 'Playfair Display', serif;
+            color: #d32f2f;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #d32f2f;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                margin-top: 1rem;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            .hero-banner h1 {
+                font-size: 2rem;
+            }
+            
+            section h2 {
+                font-size: 2rem;
+            }
+            
+            .drinks-grid, .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header id="header">
+        <div class="logo-container">
+            <!-- Placeholder for school logo -->
+            <img src="https://yt3.googleusercontent.com/ytc/AIdro_kZMqH0G-bLovm9GHRB6v0XJElXGfLEEDiwCVp_BK_qxw=s900-c-k-c0x00ffffff-no-rj" alt="Delhi World Public School Logo" class="logo">
+            <div class="school-info">
+                <h1>Delhi World Public School</h1>
+                <h2>Narmada House (Red House)</h2>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#savoury">Savoury</a></li>
+                <li><a href="#drinks">Drinks</a></li>
+                <li><a href="#dessert">Dessert</a></li>
+                <li><a href="#team">Team</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-banner">
+            <h1>Welcome to Narmada House MasterChef Competition 2025</h1>
+            <p class="slogan">A taste of passion, creativity, and teamwork</p>
+        </div>
+    </section>
+
+    <!-- Savoury Section -->
+    <section id="savoury">
+        <h2>Savoury Delights</h2>
+        <div class="dish-card">
+            <img src="https://www.mashed.com/img/gallery/beetroot-hummus-toast-recipe/intro-1691077206.webp" alt="Green Harmony Toast - Semolina toast topped with guacamole and hummus" class="dish-image">
+            <div class="dish-info">
+                <h3>Green Harmony Toast</h3>
+                <p>Our Green Harmony Toast is made with semolina and topped with guacamole and hummus.
+Semolina gives slow-release energy and fiber, guacamole provides healthy fats and vitamin E, and hummus adds plant-based protein.
+Together, it is light, filling, and nourishing — a perfect balance of good carbs, protein, and healthy fats.
+
+✨ A delicious bite of health and freshness.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Drinks Section -->
+    <section id="drinks">
+        <h2>Refreshing Drinks</h2>
+        <div class="drinks-grid">
+            <div class="drink-card">
+                <img src="https://images.mrcook.app/recipe-image/01923781-f4a5-71e9-917c-73fb727c317d?cacheKey=U3VuLCAxMiBKYW4gMjAyNSAwMzozODoyNCBHTVQ=" alt="Tender Coconut Silk Shake - Coconut-based drink" class="drink-image">
+                <h3>Tender Coconut Silk Shake</h3>
+                <p>Made with real tender coconut, coconut milk, and coconut water.
+Hydrating, refreshing, and nourishing — pure nature in every sip.</p>
+            </div>
+            <div class="drink-card">
+                <img src="https://www.amulcafe.in/wp-content/uploads/2024/03/Strawberry-Milkshake.webp" alt="CocoBerry Silk – Strawberry flavour - Strawberry coconut drink" class="drink-image">
+                <h3>CocoBerry Silk – strawberry flavour</h3>
+                <p>Tender coconut blended with strawberry for a fruity, creamy treat.
+Rich in antioxidants and bursting with berry flavour.</p>
+            </div>
+            <div class="drink-card">
+                <img src="https://tastyoven.com/wp-content/uploads/2022/06/coffee-milkshake-2.jpeg" alt="CocoMocha Silk – Coffee flavour - Coffee coconut drink" class="drink-image">
+                <h3>CocoMocha Silk – coffee flavour</h3>
+                <p>A smooth blend of tender coconut with a hint of coffee.
+Refreshing energy and creamy indulgence — perfect for coffee lovers.</p>
+            </div>
+            <div class="drink-card">
+                <img src="https://satyanarayanmukhwas.com/wp-content/uploads/2024/06/Mango-Shake.jpeg" alt="CocoMango Silk – Mango flavour - Mango coconut drink" class="drink-image">
+                <h3>CocoMango Silk – mango flavour</h3>
+                <p>Tender coconut meets juicy mango for a tropical delight.
+Thick, creamy, and full of vibrant mango taste.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dessert Section -->
+    <section id="dessert">
+        <h2>Sweet Treats</h2>
+        <div class="dish-card">
+            <img src="https://images.unsplash.com/photo-1606312619070-d48b4c652a52?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Dates Delight - Guilt-Free Brownie with dates, nuts, and berries" class="dish-image">
+            <div class="dish-info">
+                <h3>Dates Delight</h3>
+                <p>Nutrition Explanation (Short):
+
+Our Dates Delight – Guilt-Free Brownie is naturally sweetened with dates — no refined sugar, no maida.
+
+Oats, jowar, and wheat flour give slow-release carbs and high fiber, keeping you full longer.
+
+Dates add natural sweetness + iron, potassium, and antioxidants.
+
+Cocoa, hazelnuts, and almonds provide healthy fats and protein, good for skin and energy.
+
+The cashew cream cheese gives creaminess with plant-based protein.
+
+Fresh berries and seeds on top add vitamins, minerals, and omega-3.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team">
+        <h2>Our Team – The Red House Chefs</h2>
+        <div class="team-grid">
+            <div class="team-card">
+                <h3>Jiya Mulani</h3>
+            </div>
+            <div class="team-card">
+                <h3>Khush Mulani</h3>
+            </div>
+            <div class="team-card">
+                <h3>Aashvi Agarwal</h3>
+            </div>
+            <div class="team-card">
+                <h3>Sanvi Pradhan</h3>
+            </div>
+            <div class="team-card">
+                <h3>Vihaan Maloo</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Delhi World Public School – Narmada House (Red House) | MasterChef Competition</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Optional lightbox for images (simple implementation)
+        document.querySelectorAll('.dish-image, .drink-image').forEach(img => {
+            img.addEventListener('click', function() {
+                const lightbox = document.createElement('div');
+                lightbox.style.position = 'fixed';
+                lightbox.style.top = '0';
+                lightbox.style.left = '0';
+                lightbox.style.width = '100%';
+                lightbox.style.height = '100%';
+                lightbox.style.backgroundColor = 'rgba(0,0,0,0.8)';
+                lightbox.style.display = 'flex';
+                lightbox.style.alignItems = 'center';
+                lightbox.style.justifyContent = 'center';
+                lightbox.style.zIndex = '10000';
+                
+                const imgClone = this.cloneNode();
+                imgClone.style.maxWidth = '90%';
+                imgClone.style.maxHeight = '90%';
+                lightbox.appendChild(imgClone);
+                
+                lightbox.addEventListener('click', () => {
+                    document.body.removeChild(lightbox);
+                });
+                
+                document.body.appendChild(lightbox);
+            });
+        });
+
+        // Add scroll animations (parallax effect on hero)
+        window.addEventListener('scroll', () => {
+            const hero = document.getElementById('hero');
+            const scrollY = window.scrollY;
+            hero.style.backgroundPositionY = scrollY * 0.5 + 'px';
+        });
+
+        // Scroll-triggered fade-in animations for sections
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Dynamic counter animation for slogan (example: animate text appearance)
+        const slogan = document.querySelector('.slogan');
+        const text = slogan.textContent;
+        slogan.textContent = '';
+        let i = 0;
+        const typeWriter = () => {
+            if (i < text.length) {
+                slogan.textContent += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        };
+        setTimeout(typeWriter, 2000); // Start after hero animation
+    </script>
+</body>
+</html>
